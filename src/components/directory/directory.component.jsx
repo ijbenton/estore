@@ -12,7 +12,6 @@ class Directory extends Component {
         {
           title: 'hats',
           imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
-          size: 'xLarge',
           id: 1,
           linkUrl: 'shop/hats'
         },
@@ -31,6 +30,7 @@ class Directory extends Component {
         {
           title: 'womens',
           imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
+          size: 'large',
           id: 4,
           linkUrl: 'shop/womens'
         },
