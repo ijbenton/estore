@@ -2,6 +2,8 @@ import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
 
+import waveIcon from '../../assets/wave.svg';
+
 const StripeCheckoutButton = ({ price }) => {
   const priceForStripe = price * 100;
   const publishableKey = 'pk_test_z5SStrp1RjcrhtPQ7IaQ35ri00NL13JbhU';
@@ -12,16 +14,16 @@ const StripeCheckoutButton = ({ price }) => {
       method: 'post',
       data: {
         amount: priceForStripe,
-        token
+        token: token
       }
     })
       .then(response => {
-        alert('Payment Successful');
+        alert('succesful payment');
       })
       .catch(error => {
-        console.log('Payment error: ', JSON.parse(error));
+        console.log('Payment Error: ', error);
         alert(
-          'There was an issue with your payment. Please make sure you use the provided credit card.'
+          'There was an issue with your payment! Please make sure you use the provided credit card.'
         );
       });
   };
@@ -32,7 +34,7 @@ const StripeCheckoutButton = ({ price }) => {
       name="eStore Clothing Co."
       billingAddress
       shippingAddress
-      image="https://freeicons.io/laravel/public/uploads/icons/png/5919106281535782596-64.png"
+      image={waveIcon}
       description={`Your total is $${price}`}
       amount={priceForStripe}
       panelLabel="Pay Now"
