@@ -2,7 +2,8 @@ import UserActionTypes from './user.types';
 
 const INITIAL_STATE = {
   currentUser: null,
-  error: null
+  error: null,
+  signUpHidden: true
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -25,6 +26,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         error: action.payload
+      };
+    case UserActionTypes.TOGGLE_SIGN_UP:
+      return {
+        ...state,
+        signUpHidden: !state.signUpHidden
       };
     default:
       return state;

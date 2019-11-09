@@ -4,11 +4,15 @@ import { connect } from 'react-redux';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
-import { signUpStart } from '../../redux/user/user.actions';
+import { signUpStart, toggleSignUp } from '../../redux/user/user.actions';
 
-import './sign-up.styles.scss';
+import {
+  SignUpContainer,
+  SignUpTitle,
+  ButtonsBarContainer
+} from './sign-up.styles';
 
-const SignUp = ({ signUpStart }) => {
+const SignUp = ({ signUpStart, toggleSignUp }) => {
   const [userCredentials, setUserCredentials] = useState({
     displayName: '',
     email: '',
@@ -35,10 +39,10 @@ const SignUp = ({ signUpStart }) => {
   };
 
   return (
-    <div className="sign-up">
-      <h2 className="title">I do not have an account</h2>
+    <SignUpContainer>
+      <SignUpTitle>I do not have an account</SignUpTitle>
       <span>Sign up with your email and password</span>
-      <form className="sign-up-form" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <FormInput
           type="text"
           name="displayName"
@@ -71,14 +75,18 @@ const SignUp = ({ signUpStart }) => {
           label="Confirm Password"
           required
         />
-        <CustomButton type="submit">SIGN UP</CustomButton>
+        <ButtonsBarContainer>
+          <CustomButton type="submit">SIGN UP</CustomButton>
+          <CustomButton onClick={toggleSignUp}> SIGN IN </CustomButton>
+        </ButtonsBarContainer>
       </form>
-    </div>
+    </SignUpContainer>
   );
 };
 
 const mapDispatchToProps = dispatch => ({
-  signUpStart: userCredentials => dispatch(signUpStart(userCredentials))
+  signUpStart: userCredentials => dispatch(signUpStart(userCredentials)),
+  toggleSignUp: () => dispatch(toggleSignUp())
 });
 
 export default connect(

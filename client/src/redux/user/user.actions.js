@@ -48,3 +48,7 @@ export const signUpFailure = error => ({
   type: UserActionTypes.SIGN_UP_FAILURE,
   payload: error
 });
+
+export const toggleSignUp = () => ({
+  type: UserActionTypes.TOGGLE_SIGN_UP
+});
