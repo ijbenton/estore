@@ -17,6 +17,9 @@ export const Title = styled.h1`
   &:hover {
     color: grey;
   }
+  @media screen and (max-width: 800px) {
+    margin-bottom: 5px;
+  }
 `;
 
 export const TitleContainer = styled.div`

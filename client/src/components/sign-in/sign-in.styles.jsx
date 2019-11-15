@@ -18,3 +18,15 @@ export const ButtonsBarContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
 `;
+
+export const SignInAndSignUpPage = styled.div`
+  width: 850px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px auto;
+  @media screen and (max-width: 800px) {
+    width: 100%;
+    flex-direction: column;
+  }
+`;

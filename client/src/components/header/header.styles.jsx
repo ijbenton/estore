@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const HeaderContainer = styled.div`
   height: 70px;
@@ -11,7 +11,7 @@ export const HeaderContainer = styled.div`
   @media screen and (max-width: 800px) {
     height: 60px;
     padding: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
 `;
 

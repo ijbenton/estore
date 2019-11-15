@@ -52,3 +52,7 @@ export const signUpFailure = error => ({
 export const toggleSignUp = () => ({
   type: UserActionTypes.TOGGLE_SIGN_UP
 });
+
+export const resetSignInPage = () => ({
+  type: UserActionTypes.RESET_SIGN_IN_PAGE
+});

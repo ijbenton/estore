@@ -50,18 +50,23 @@ export const ContentContainer = styled.div`
   justify-content: center;
   border: 1px solid black;
   background-color: white;
-  opacity: 0.7;
+  opacity: 0.85;
   position: absolute;
 `;
 
 export const ContentTitle = styled.span`
   font-weight: bold;
   margin-bottom: 6px;
-  font-size: 22px;
+  font-size: 28px;
   color: #4a4a4a;
+  @media screen and (max-width: 800px) {
+    font-size: 20px;
+  }
 `;
 
 export const ContentSubtitle = styled.span`
-  font-weight: lighter;
-  font-size: 16px;
+  font-size: 20px;
+  @media screen and (max-width: 800px) {
+    font-size: 16px;
+  }
 `;

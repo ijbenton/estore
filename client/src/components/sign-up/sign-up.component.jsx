@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { Link } from 'react-router-dom';
 
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
-import { signUpStart, toggleSignUp } from '../../redux/user/user.actions';
+import { signUpStart } from '../../redux/user/user.actions';
+import { selectError } from '../../redux/user/user.selectors';
 
 import {
   SignUpContainer,
@@ -12,7 +15,9 @@ import {
   ButtonsBarContainer
 } from './sign-up.styles';
 
-const SignUp = ({ signUpStart, toggleSignUp }) => {
+import { SignInAndSignUpPage } from '../sign-in/sign-in.styles';
+
+const SignUp = ({ signUpStart, error }) => {
   const [userCredentials, setUserCredentials] = useState({
     displayName: '',
     email: '',
@@ -38,58 +43,68 @@ const SignUp = ({ signUpStart, toggleSignUp }) => {
     setUserCredentials({ ...userCredentials, [name]: value });
   };
 
+  useEffect(() => {
+    if (error) {
+      alert(error);
+    }
+  }, [error]);
+
   return (
-    <SignUpContainer>
-      <SignUpTitle>I do not have an account</SignUpTitle>
-      <span>Sign up with your email and password</span>
-      <form onSubmit={handleSubmit}>
-        <FormInput
-          type="text"
-          name="displayName"
-          value={displayName}
-          onChange={handleChange}
-          label="Display Name"
-          required
-        />
-        <FormInput
-          type="email"
-          name="email"
-          value={email}
-          onChange={handleChange}
-          label="Email"
-          required
-        />
-        <FormInput
-          type="password"
-          name="password"
-          value={password}
-          onChange={handleChange}
-          label="Password"
-          required
-        />
-        <FormInput
-          type="password"
-          name="confirmPassword"
-          value={confirmPassword}
-          onChange={handleChange}
-          label="Confirm Password"
-          required
-        />
-        <ButtonsBarContainer>
-          <CustomButton type="submit">SIGN UP</CustomButton>
-          <CustomButton onClick={toggleSignUp}> SIGN IN </CustomButton>
-        </ButtonsBarContainer>
-      </form>
-    </SignUpContainer>
+    <SignInAndSignUpPage>
+      <SignUpContainer>
+        <SignUpTitle>I do not have an account</SignUpTitle>
+        <span>Sign up with your email and password</span>
+        <form onSubmit={handleSubmit}>
+          <FormInput
+            type="text"
+            name="displayName"
+            value={displayName}
+            onChange={handleChange}
+            label="Display Name"
+            required
+          />
+          <FormInput
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleChange}
+            label="Email"
+            required
+          />
+          <FormInput
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+            label="Password"
+            required
+          />
+          <FormInput
+            type="password"
+            name="confirmPassword"
+            value={confirmPassword}
+            onChange={handleChange}
+            label="Confirm Password"
+            required
+          />
+          <ButtonsBarContainer>
+            <CustomButton type="submit">SIGN UP</CustomButton>
+            <Link to="/signin">
+              <CustomButton> SIGN IN </CustomButton>
+            </Link>
+          </ButtonsBarContainer>
+        </form>
+      </SignUpContainer>
+    </SignInAndSignUpPage>
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  signUpStart: userCredentials => dispatch(signUpStart(userCredentials)),
-  toggleSignUp: () => dispatch(toggleSignUp())
+const mapStateToProps = createStructuredSelector({
+  error: selectError
 });
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(SignUp);
+const mapDispatchToProps = dispatch => ({
+  signUpStart: userCredentials => dispatch(signUpStart(userCredentials))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

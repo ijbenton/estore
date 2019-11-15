@@ -32,6 +32,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         signUpHidden: !state.signUpHidden
       };
+    case UserActionTypes.RESET_SIGN_IN_PAGE:
+      return {
+        ...state,
+        signUpHidden: true
+      };
     default:
       return state;
   }
