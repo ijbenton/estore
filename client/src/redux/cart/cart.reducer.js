@@ -3,7 +3,8 @@ import { addItemToCart, removeItemFromCart } from './cart.utils';
 
 const INITIAL_STATE = {
   hidden: true,
-  cartItems: []
+  cartItems: [],
+  iconNode: null
 };
 
 const cartReducer = (state = INITIAL_STATE, action) => {
@@ -12,6 +13,17 @@ const cartReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         hidden: !state.hidden
+      };
+    case CartActionTypes.HIDE_CART:
+      return {
+        ...state,
+        hidden: true
+      };
+
+    case CartActionTypes.GET_ICON_NODE:
+      return {
+        ...state,
+        iconNode: action.payload
       };
 
     case CartActionTypes.ADD_ITEM:

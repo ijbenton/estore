@@ -1,7 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-import { addItem } from '../../redux/cart/cart.actions';
+import { addItem } from "../../redux/cart/cart.actions";
 
 import {
   CollectionItemContainer,
@@ -10,14 +11,32 @@ import {
   BackgroundImage,
   NameContainer,
   PriceContainer
-} from './collection-item.styles';
+} from "./collection-item.styles";
 
-const CollectionItem = ({ item, addItem }) => {
+const CollectionItem = ({
+  item,
+  index,
+  addItem,
+  history,
+  match,
+  routeName,
+  title
+}) => {
   const { name, price, imageUrl } = item;
-
+  const openItem = (history, match, routeName, index, title) => {
+    if (routeName) {
+      history.push(`${match.path}/${routeName}/${index}`);
+    } else {
+      history.push(`/shop/${title.toLowerCase()}/${index}`);
+    }
+  };
   return (
     <CollectionItemContainer>
-      <BackgroundImage className="image" imageUrl={imageUrl} />
+      <BackgroundImage
+        className="image"
+        imageUrl={imageUrl}
+        onClick={() => openItem(history, match, routeName, index, title)}
+      />
       <CollectionFooterContainer>
         <NameContainer>{name}</NameContainer>
         <PriceContainer>{price}</PriceContainer>
@@ -33,7 +52,4 @@ const mapDispatchToProps = dispatch => ({
   addItem: item => dispatch(addItem(item))
 });
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(CollectionItem);
+export default withRouter(connect(null, mapDispatchToProps)(CollectionItem));

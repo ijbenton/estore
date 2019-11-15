@@ -12,12 +12,14 @@ const CollectionPageContainer = lazy(() =>
 const CollectionsOverviewContainer = lazy(() =>
   import('../../components/collections-overview/collections-overview.container')
 );
+const DescriptionPageContainer = lazy(() =>
+  import('../description/description.container')
+);
 
 const ShopPage = ({ fetchCollectionsStart, match }) => {
   useEffect(() => {
     fetchCollectionsStart();
   }, [fetchCollectionsStart]);
-
   return (
     <div className="shop-page">
       <Suspense fallback={<Spinner />}>
@@ -27,8 +29,14 @@ const ShopPage = ({ fetchCollectionsStart, match }) => {
           component={CollectionsOverviewContainer}
         />
         <Route
+          exact
           path={`${match.path}/:collectionId`}
           component={CollectionPageContainer}
+        />
+        <Route
+          exact
+          path={`${match.path}/:collectionId/:id`}
+          component={DescriptionPageContainer}
         />
       </Suspense>
     </div>
@@ -39,7 +47,4 @@ const mapDispatchToProps = dispatch => ({
   fetchCollectionsStart: () => dispatch(fetchCollectionsStart())
 });
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(ShopPage);
+export default connect(null, mapDispatchToProps)(ShopPage);

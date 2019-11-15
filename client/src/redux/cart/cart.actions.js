@@ -22,3 +22,12 @@ export const clearItemFromCart = item => ({
 export const clearCart = () => ({
   type: CartActionTypes.CLEAR_CART
 });
+
+export const hideCart = () => ({
+  type: CartActionTypes.HIDE_CART
+});
+
+export const getIconNode = node => ({
+  type: CartActionTypes.GET_ICON_NODE,
+  payload: node
+});

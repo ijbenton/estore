@@ -6,19 +6,30 @@ import CollectionItem from '../collection-item/collection-item.component';
 import {
   CollectionPreviewContainer,
   TitleContainer,
+  Title,
   PreviewContainer
 } from './collection-preview.styles';
 
 const CollectionPreview = ({ title, items, history, match, routeName }) => (
   <CollectionPreviewContainer>
-    <TitleContainer onClick={() => history.push(`${match.path}/${routeName}`)}>
-      {title.toUpperCase()}
+    <TitleContainer>
+      <Title onClick={() => history.push(`${match.path}/${routeName}`)}>
+        {title.toUpperCase()}
+      </Title>
     </TitleContainer>
     <PreviewContainer>
       {items
-        .filter((item, idx) => idx < 4)
-        .map(item => (
-          <CollectionItem key={item.id} item={item} />
+        .filter((item, index) => index < 4)
+        .map((item, index) => (
+          <CollectionItem
+            key={item.id}
+            item={item}
+            routeName={routeName}
+            history={history}
+            title={title}
+            match={match}
+            index={index}
+          />
         ))}
     </PreviewContainer>
   </CollectionPreviewContainer>
