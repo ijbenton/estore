@@ -8,9 +8,10 @@ import CustomButton from '../custom-button/custom-button.component';
 
 import {
   googleSignInStart,
-  emailSignInStart
+  emailSignInStart,
+  resetSignInError
 } from '../../redux/user/user.actions';
-import { selectError } from '../../redux/user/user.selectors';
+import { selectSignInError } from '../../redux/user/user.selectors';
 
 import {
   ButtonsBarContainer,
@@ -19,7 +20,12 @@ import {
   SignInAndSignUpPage
 } from './sign-in.styles';
 
-const SignIn = ({ emailSignInStart, googleSignInStart, error }) => {
+const SignIn = ({
+  emailSignInStart,
+  googleSignInStart,
+  signInError,
+  resetSignInError
+}) => {
   const [userCredentials, setCredentials] = useState({
     email: '',
     password: ''
@@ -39,10 +45,11 @@ const SignIn = ({ emailSignInStart, googleSignInStart, error }) => {
   };
 
   useEffect(() => {
-    if (error) {
-      alert(error);
+    if (signInError) {
+      alert(signInError);
+      resetSignInError();
     }
-  }, [error]);
+  }, [signInError]);
 
   return (
     <SignInAndSignUpPage>
@@ -87,13 +94,14 @@ const SignIn = ({ emailSignInStart, googleSignInStart, error }) => {
   );
 };
 const mapStateToProps = createStructuredSelector({
-  error: selectError
+  signInError: selectSignInError
 });
 
 const mapDispatchToProps = dispatch => ({
   googleSignInStart: () => dispatch(googleSignInStart()),
   emailSignInStart: (email, password) =>
-    dispatch(emailSignInStart({ email, password }))
+    dispatch(emailSignInStart({ email, password })),
+  resetSignInError: () => dispatch(resetSignInError())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

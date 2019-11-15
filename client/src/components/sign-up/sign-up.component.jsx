@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
-import { signUpStart } from '../../redux/user/user.actions';
-import { selectError } from '../../redux/user/user.selectors';
+import { signUpStart, resetSignUpError } from '../../redux/user/user.actions';
+import { selectSignUpError } from '../../redux/user/user.selectors';
 
 import {
   SignUpContainer,
@@ -17,7 +17,7 @@ import {
 
 import { SignInAndSignUpPage } from '../sign-in/sign-in.styles';
 
-const SignUp = ({ signUpStart, error }) => {
+const SignUp = ({ signUpStart, signUpError, resetSignUpError }) => {
   const [userCredentials, setUserCredentials] = useState({
     displayName: '',
     email: '',
@@ -42,6 +42,13 @@ const SignUp = ({ signUpStart, error }) => {
 
     setUserCredentials({ ...userCredentials, [name]: value });
   };
+
+  useEffect(() => {
+    if (signUpError) {
+      alert(signUpError);
+      resetSignUpError();
+    }
+  }, [signUpError]);
 
   return (
     <SignInAndSignUpPage>
@@ -94,11 +101,12 @@ const SignUp = ({ signUpStart, error }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-  error: selectError
+  signUpError: selectSignUpError
 });
 
 const mapDispatchToProps = dispatch => ({
-  signUpStart: userCredentials => dispatch(signUpStart(userCredentials))
+  signUpStart: userCredentials => dispatch(signUpStart(userCredentials)),
+  resetSignUpError: () => dispatch(resetSignUpError())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

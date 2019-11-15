@@ -12,4 +12,11 @@ export const selectSignUpHidden = createSelector(
   user => user.signUpHidden
 );
 
-export const selectError = createSelector([selectUser], user => user.error);
+export const selectSignInError = createSelector(
+  [selectUser],
+  user => user.signInError
+);
+export const selectSignUpError = createSelector(
+  [selectUser],
+  user => user.signUpError
+);

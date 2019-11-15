@@ -53,6 +53,9 @@ export const toggleSignUp = () => ({
   type: UserActionTypes.TOGGLE_SIGN_UP
 });
 
-export const resetSignInPage = () => ({
-  type: UserActionTypes.RESET_SIGN_IN_PAGE
+export const resetSignInError = () => ({
+  type: UserActionTypes.INITIALIZE_SIGN_IN_ERROR
+});
+export const resetSignUpError = () => ({
+  type: UserActionTypes.INITIALIZE_SIGN_UP_ERROR
 });
