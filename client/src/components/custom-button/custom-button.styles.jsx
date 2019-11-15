@@ -3,12 +3,11 @@ import styled, { css } from 'styled-components';
 const buttonStyles = css`
   background-color: black;
   color: white;
-  border: none;
+  border: 1px solid white;
 
   &:hover {
     background-color: white;
     color: black;
-    border: 1px solid black;
   }
 `;
 
@@ -29,7 +28,7 @@ const googleSignInStyles = css`
   color: white;
 
   &:hover {
-    background-color: #357ae8;
+    background-color: #00008b;
     border: none;
   }
 `;

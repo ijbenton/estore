@@ -4,7 +4,9 @@ export const GlobalStyle = createGlobalStyle`
 body {
     font-family: 'Barlow Condensed';
     font-size: 21px;
+    color: white;
     padding: 20px 40px;
+    background-color: black;
     @media screen and (max-width: 800px){
         padding: 10px;
     }
@@ -12,7 +14,7 @@ body {
   
   a {
     text-decoration: none;
-    color: black;
+    color: white;
   }
   
   * {

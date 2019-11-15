@@ -1,15 +1,15 @@
-import React from "react";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-import { selectCollectionItem } from "../../redux/shop/shop.selectors";
-import { selectCartItems } from "../../redux/cart/cart.selectors";
+import { selectCollectionItem } from '../../redux/shop/shop.selectors';
+import { selectCartItems } from '../../redux/cart/cart.selectors';
 
 import {
   clearItemFromCart,
   addItem,
   removeItem
-} from "../../redux/cart/cart.actions";
+} from '../../redux/cart/cart.actions';
 
 import {
   DescriptionPageContainer,
@@ -19,7 +19,7 @@ import {
   AddButton,
   LineBreak,
   ItemDescriptionContainer
-} from "./description.styles";
+} from './description.styles';
 
 const DescriptionPage = ({ collectionItem, addItem }) => {
   const { name, price, imageUrl } = collectionItem;
@@ -31,9 +31,9 @@ const DescriptionPage = ({ collectionItem, addItem }) => {
       <ItemDescriptionContainer>
         <ItemNameContainer>{name}</ItemNameContainer>
         <LineBreak />
-        <ItemPriceContainer>{"$ " + price}</ItemPriceContainer>
+        <ItemPriceContainer>{'$ ' + price}</ItemPriceContainer>
         <LineBreak />
-        <AddButton onClick={() => addItem(collectionItem)} inverted>
+        <AddButton onClick={() => addItem(collectionItem)}>
           Add to cart
         </AddButton>
       </ItemDescriptionContainer>

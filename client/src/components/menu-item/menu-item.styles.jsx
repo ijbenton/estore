@@ -58,7 +58,7 @@ export const ContentTitle = styled.span`
   font-weight: bold;
   margin-bottom: 6px;
   font-size: 28px;
-  color: #4a4a4a;
+  color: black;
   @media screen and (max-width: 800px) {
     font-size: 20px;
   }
@@ -66,6 +66,7 @@ export const ContentTitle = styled.span`
 
 export const ContentSubtitle = styled.span`
   font-size: 20px;
+  color: black;
   @media screen and (max-width: 800px) {
     font-size: 16px;
   }

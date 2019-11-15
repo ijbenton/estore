@@ -43,12 +43,6 @@ const SignUp = ({ signUpStart, error }) => {
     setUserCredentials({ ...userCredentials, [name]: value });
   };
 
-  useEffect(() => {
-    if (error) {
-      alert(error);
-    }
-  }, [error]);
-
   return (
     <SignInAndSignUpPage>
       <SignUpContainer>

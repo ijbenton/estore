@@ -9,6 +9,7 @@ export const CartIconContainer = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  filter: invert(100%);
 `;
 
 export const ShoppingIconContainer = styled(ShoppingIconSVG)`
@@ -17,8 +18,9 @@ export const ShoppingIconContainer = styled(ShoppingIconSVG)`
 `;
 
 export const ItemCountContainer = styled.span`
+  color: black;
   position: absolute;
-  font-size: 10px;
+  font-size: 14px;
   font-weight: bold;
   bottom: 12px;
 `;
