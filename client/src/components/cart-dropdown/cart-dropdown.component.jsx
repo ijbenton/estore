@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom';
 import CartItem from '../cart-item/cart-item.component';
 import { selectCartItems } from '../../redux/cart/cart.selectors';
 import { toggleCartHidden } from '../../redux/header/header.actions';
-import { selectCartHidden } from '../../redux/header/header.selectors';
 
 import {
   CartDropdownContainer,
@@ -15,26 +14,22 @@ import {
   CartItemsContainer
 } from './cart-dropdown.styles';
 
-const CartDropdown = ({ cartItems, history, dispatch, hidden }) => {
+const CartDropdown = ({ cartItems, history, toggleCartHidden }) => {
   const node = useRef();
   const handleClick = e => {
     if (node.current.contains(e.target)) {
       // inside click
-      console.log('dropdown handleClick fired');
       return;
     }
     // outside click
-    console.log('outside click of cart dropdown');
-    dispatch(toggleCartHidden());
+    toggleCartHidden();
   };
 
   useEffect(() => {
     // add when mounted
-    console.log('cart dropdown click event added');
     document.addEventListener('mousedown', handleClick);
     // return function to be called when unmounted
     return () => {
-      console.log('cart dropdown click event removed');
       document.removeEventListener('mousedown', handleClick);
     };
   }, []);
@@ -52,7 +47,7 @@ const CartDropdown = ({ cartItems, history, dispatch, hidden }) => {
       <CartDropdownButton
         onClick={() => {
           history.push('/checkout');
-          dispatch(toggleCartHidden());
+          toggleCartHidden();
         }}
       >
         GO TO CHECKOUT
@@ -60,9 +55,13 @@ const CartDropdown = ({ cartItems, history, dispatch, hidden }) => {
     </CartDropdownContainer>
   );
 };
+const mapDispatchToProps = dispatch => ({
+  toggleCartHidden: () => dispatch(toggleCartHidden())
+});
 
 const mapStateToProps = createStructuredSelector({
-  cartItems: selectCartItems,
-  hidden: selectCartHidden
+  cartItems: selectCartItems
 });
-export default withRouter(connect(mapStateToProps)(CartDropdown));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(CartDropdown)
+);
