@@ -31,3 +31,8 @@ export const getIconNode = node => ({
   type: CartActionTypes.GET_ICON_NODE,
   payload: node
 });
+
+export const setCartFromFirebase = cartItems => ({
+  type: CartActionTypes.SET_FIREBASE_CART,
+  payload: cartItems
+});

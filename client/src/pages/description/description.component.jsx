@@ -3,12 +3,16 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { selectCollectionItem } from '../../redux/shop/shop.selectors';
-import { selectCartItems } from '../../redux/cart/cart.selectors';
+import {
+  selectCartItems,
+  selectCartHidden
+} from '../../redux/cart/cart.selectors';
 
 import {
   clearItemFromCart,
   addItem,
-  removeItem
+  removeItem,
+  toggleCartHidden
 } from '../../redux/cart/cart.actions';
 
 import {
@@ -21,8 +25,19 @@ import {
   ItemDescriptionContainer
 } from './description.styles';
 
-const DescriptionPage = ({ collectionItem, addItem }) => {
+const DescriptionPage = ({
+  collectionItem,
+  addItem,
+  toggleCartHidden,
+  hidden
+}) => {
   const { name, price, imageUrl } = collectionItem;
+  const addButtonClick = item => {
+    addItem(item);
+    if (hidden) {
+      toggleCartHidden();
+    }
+  };
   return (
     <DescriptionPageContainer>
       <ItemImageContainer>
@@ -33,7 +48,7 @@ const DescriptionPage = ({ collectionItem, addItem }) => {
         <LineBreak />
         <ItemPriceContainer>{'$ ' + price}</ItemPriceContainer>
         <LineBreak />
-        <AddButton onClick={() => addItem(collectionItem)}>
+        <AddButton onClick={() => addButtonClick(collectionItem)}>
           Add to cart
         </AddButton>
       </ItemDescriptionContainer>
@@ -47,13 +62,15 @@ const mapStateToProps = (state, ownProps) =>
       ownProps.match.params.collectionId,
       ownProps.match.params.id
     ),
-    cartItems: selectCartItems
+    cartItems: selectCartItems,
+    hidden: selectCartHidden
   });
 
 const mapDispatchToProps = dispatch => ({
   clearItem: item => dispatch(clearItemFromCart(item)),
   addItem: item => dispatch(addItem(item)),
-  removeItem: item => dispatch(removeItem(item))
+  removeItem: item => dispatch(removeItem(item)),
+  toggleCartHidden: () => dispatch(toggleCartHidden())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DescriptionPage);

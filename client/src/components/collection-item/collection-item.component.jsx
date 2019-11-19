@@ -1,8 +1,10 @@
-import React from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { createStructuredSelector } from 'reselect';
 
-import { addItem } from "../../redux/cart/cart.actions";
+import { addItem, toggleCartHidden } from '../../redux/cart/cart.actions';
+import { selectCartHidden } from '../../redux/cart/cart.selectors';
 
 import {
   CollectionItemContainer,
@@ -11,7 +13,7 @@ import {
   BackgroundImage,
   NameContainer,
   PriceContainer
-} from "./collection-item.styles";
+} from './collection-item.styles';
 
 const CollectionItem = ({
   item,
@@ -20,15 +22,23 @@ const CollectionItem = ({
   history,
   match,
   routeName,
-  title
+  title,
+  toggleCartHidden,
+  hidden
 }) => {
   const { name, price, imageUrl } = item;
+
   const openItem = (history, match, routeName, index, title) => {
     if (routeName) {
       history.push(`${match.path}/${routeName}/${index}`);
     } else {
       history.push(`/shop/${title.toLowerCase()}/${index}`);
     }
+  };
+
+  const addButtonClick = item => {
+    addItem(item);
+    toggleCartHidden();
   };
   return (
     <CollectionItemContainer>
@@ -41,15 +51,22 @@ const CollectionItem = ({
         <NameContainer>{name}</NameContainer>
         <PriceContainer>{price}</PriceContainer>
       </CollectionFooterContainer>
-      <AddButton onClick={() => addItem(item)} inverted>
+      <AddButton onClick={() => addButtonClick(item)} inverted>
         Add to cart
       </AddButton>
     </CollectionItemContainer>
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  addItem: item => dispatch(addItem(item))
+const mapStateToProps = createStructuredSelector({
+  hidden: selectCartHidden
 });
 
-export default withRouter(connect(null, mapDispatchToProps)(CollectionItem));
+const mapDispatchToProps = dispatch => ({
+  addItem: item => dispatch(addItem(item)),
+  toggleCartHidden: () => dispatch(toggleCartHidden())
+});
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(CollectionItem)
+);

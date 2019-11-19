@@ -24,7 +24,6 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!snapShot.exists) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
-
     try {
       await userRef.set({
         displayName,
@@ -38,6 +37,22 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   }
 
   return userRef;
+};
+
+export const getUserCartRef = async userId => {
+  const cartsRef = firestore.collection('carts').where('userId', '==', userId);
+  const cartSnapshot = await cartsRef.get();
+
+  if (cartSnapshot.empty) {
+    const cartDocRef = firestore.collection('carts').doc();
+    await cartDocRef.set({
+      userId,
+      cartItems: []
+    });
+    return cartDocRef;
+  } else {
+    return cartSnapshot.docs[0].ref;
+  }
 };
 
 export const addCollectionAndDocuments = async (
